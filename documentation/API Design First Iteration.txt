@@ -1,0 +1,139 @@
+@startuml AI_Document_Processor
+
+!define MODEL(x) class x << (M,#FFFFAA) Model >>
+!define REPOSITORY(x) class x << (R,#FFAAAA) Repository >>
+!define SERVICE(x) class x << (S,#FFAAFF) Service >>
+!define CONTROLLER(x) class x << (C,#AAFFAA) Controller >>
+!define APP(x) class x << (A,#AAAAFF) Application >>
+
+MODEL(User) {
+    +id: string
+    +username: string
+    +email: string
+    +passwordHash: string
+    +role: string
+}
+
+MODEL(Document) {
+    +id: string
+    +title: string
+    +content: Binary
+    +uploadedAt: Date
+    +processedData: JSON
+    +uploadedBy: User
+    +oieLibrary: boolean
+}
+
+MODEL(ExtractedData) {
+    +documentId: string
+    +engagement: Engagement
+    +opportunity: Opportunity
+    +partner: Partner
+}
+
+MODEL(Engagement) {
+    +id: string
+    +name: string
+    +summary: string
+    +oieManager: string
+    +leadResearchers: string[]
+}
+
+MODEL(Opportunity) {
+    +id: string
+    +name: string
+    +type: string
+    +amount: number
+}
+
+MODEL(Partner) {
+    +id: string
+    +accountName: string
+    +abn: string
+    +website: string
+    +address: string
+    +companyCategory: string
+    +industryClassification: string
+    +industrySubClassification: string
+}
+
+REPOSITORY(UserRepository) {
+    +findUserByEmail(email: string): User
+    +saveUser(user: User): void
+}
+
+REPOSITORY(DocumentRepository) {
+    +saveDocument(doc: Document): void
+    +getDocumentById(id: string): Document
+    +getAllDocuments(): Document[]
+}
+
+REPOSITORY(ExtractedDataRepository) {
+    +saveExtractedData(data: ExtractedData): void
+    +getExtractedDataByDocument(id: string): ExtractedData
+}
+
+SERVICE(AuthService) {
+    -userRepository: UserRepository
+    +register(user: User): void
+    +login(email: string, password: string): string
+    +logout(): void
+    +validateToken(token: string): User
+}
+
+SERVICE(DocumentService) {
+    -documentRepository: DocumentRepository
+    -authService: AuthService
+    -aiService: AIService
+    -extractedDataRepository: ExtractedDataRepository
+    +uploadDocument(file: Binary, user: User): string
+    +processDocument(id: string): JSON
+    +getExtractedData(id: string): ExtractedData
+}
+
+SERVICE(AIService) {
+    +sendToAI(content: Binary): ExtractedData
+}
+
+SERVICE(CSVService) {
+    +generateCSV(documentId: string): File
+}
+
+CONTROLLER(AuthController) {
+    -authService: AuthService
+    +router.post('/auth/register')
+    +router.post('/auth/login')
+    +router.post('/auth/logout')
+    +router.get('/auth/me')
+}
+
+CONTROLLER(DocumentController) {
+    -documentService: DocumentService
+    -authService: AuthService
+    +router.post('/upload')
+    +router.get('/documents')
+    +router.get('/documents/:id')
+    +router.post('/documents/:id/process')
+    +router.get('/documents/:id/extracted')
+    +router.get('/documents/:id/csv')
+}
+
+APP(App) {
+    +main()
+}
+
+App --> AuthController : Injects AuthService
+App --> DocumentController : Injects DocumentService
+DocumentController --> DocumentService : Uses AuthService, AIService & ExtractedDataRepository
+AuthController --> AuthService : Handles Authentication
+AuthService --> UserRepository : Manages User Data
+AuthService --> UserRepository : Accesses user data
+DocumentService --> DocumentRepository : Manages document storage
+DocumentService --> AuthService : Validates user authentication
+DocumentService --> AIService : Calls OpenAI API
+DocumentRepository --> Document : Stores and retrieves documents
+ExtractedDataRepository --> ExtractedData : Stores and retrieves AI-extracted data
+CSVService --> ExtractedDataRepository : Converts extracted data to CSV
+DocumentController --> CSVService : Provides CSV download
+
+@enduml
