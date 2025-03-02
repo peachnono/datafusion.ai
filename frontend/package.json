@@ -13,9 +13,8 @@
     "@types/react": "^18.0.10",
     "@types/react-dom": "^18.0.4",
     "axios": "^1.8.1",
-    "react": "^18.0.0",
+    "react": "^18.3.1",
     "react-dom": "^18.0.0",
-    "react-query": "^3.39.3",
     "react-router-dom": "^7.2.0",
     "react-scripts": "^5.0.0",
     "typescript": "^4.9.5",
@@ -46,11 +45,9 @@
     ]
   },
   "devDependencies": {
-    "@tanstack/eslint-plugin-query": "^5.66.1",
     "@types/axios": "^0.9.36",
     "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.0.9"
+    "postcss": "^8.5.3"
   }
 }
