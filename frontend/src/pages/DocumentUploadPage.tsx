@@ -1,5 +1,14 @@
-import React from 'react'; 
+import React from 'react';
+import Navbar from '../components/Navbar';
+import DocumentUploader from '../components/DocumentUploader';
 
-export const DocumentUploadPage = () => {
-    // Component logic here
+const DocumentUploadPage: React.FC = () => {
+  return (
+    <div>
+      <h1>Upload Documents</h1>
+      <DocumentUploader />
+    </div>
+  );
 };
+
+export default DocumentUploadPage;

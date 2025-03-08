@@ -1,3 +1,22 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;  /* Stack header, content, footer vertically */
+  min-height: 100vh;       /* Ensure the app takes at least the full height of the screen */
+}
+
+.content {
+  flex: 1;  /* Allow content to grow and take up available space */
+  margin: 25px 80px;  /* Centers the content within the container */
+}
+
+/* General styling for App components, avoiding overlap with navbar and footer */
+
+/* Default styles for the app */
 .App {
   text-align: center;
 }
