@@ -1,14 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';  // You can swap out with other pages
+import Footer from './components/Footer'; // Import Footer component
+import Navbar from './components/Navbar'; // Import Navbar component
+import DocumentUploadPage from './pages/DocumentUploadPage';
 
 function App() {
   return (
-    <div className='g-gray-100 h-screen flex flex-col items-center justify-center'>
-      <HomePage />
-      <LoginPage />
+    <div className="app-container">
+      <header className="header">
+        <Navbar />  {/* Navbar at the top */}
+      </header>
+      <main className="content">
+        <DocumentUploadPage /> {/* Dynamically change this based on page */}
+      </main>
+      <footer className="footer">
+        <Footer />  {/* Footer stays at the bottom */}
+      </footer>
     </div>
   );
 }

@@ -1,0 +1,14 @@
+.footer {
+    background-color: #c7f1ff;
+    color: white;
+    padding: 15px 0px 15px 0px;
+    text-align: right;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 20px;
+    font-size: 1rem;
+  }
+  
