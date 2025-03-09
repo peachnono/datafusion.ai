@@ -1,0 +1,13 @@
+.filepond-container {
+
+}
+
+/* Customize the FilePond component */
+.filepond--root {
+    width: 100%; /* Full width, adjust as needed */
+    padding: 250px; /* Adjust the height to your preference */
+}
+  
+.filepond--drop-label {
+    font-size: 1.5rem; /* Optional: make the text larger */
+}

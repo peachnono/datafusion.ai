@@ -1,12 +1,15 @@
 import React from 'react';
+import './DocumentUploadPage.css';
 import Navbar from '../components/Navbar';
 import DocumentUploader from '../components/DocumentUploader';
 
 const DocumentUploadPage: React.FC = () => {
   return (
     <div>
-      <h1>Upload Documents</h1>
-      <DocumentUploader />
+      <h1>Upload Documents To Be Analysed</h1>
+        <div className="filepond-container">
+          <DocumentUploader />
+        </div>
     </div>
   );
 };

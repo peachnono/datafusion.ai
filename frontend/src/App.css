@@ -14,9 +14,7 @@ html, body {
   margin: 25px 80px;  /* Centers the content within the container */
 }
 
-/* General styling for App components, avoiding overlap with navbar and footer */
-
-/* Default styles for the app */
+/* Default for the app, I didn't change this, I just added the above */
 .App {
   text-align: center;
 }
