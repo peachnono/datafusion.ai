@@ -7,7 +7,7 @@
   
   .navbar-content {
     display: flex;
-    justify-content: flex-end; /* Moves app name to the right */
+    justify-content: space-between;
     margin: 0 20px;
   }
   

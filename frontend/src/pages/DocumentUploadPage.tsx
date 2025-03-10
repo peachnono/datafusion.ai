@@ -1,6 +1,5 @@
 import React from 'react';
 import './DocumentUploadPage.css';
-import Navbar from '../components/Navbar';
 import DocumentUploader from '../components/DocumentUploader';
 
 const DocumentUploadPage: React.FC = () => {

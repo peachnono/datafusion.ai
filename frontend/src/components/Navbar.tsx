@@ -1,29 +1,35 @@
+// Navbar.tsx
 import React, { useState } from 'react';
-import hamburgerMenuIcon from '../images/hamburger.png';
 import './Navbar.css';
+import Hamburger from './Hamburger'; // Import the Hamburger component
+import Sidebar from './Sidebar'; // Import Sidebar component
 
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleMenuToggle = () => {
+    setMenuOpen(!menuOpen); // Toggle sidebar visibility
+  };
+
+  const handleCloseSidebar = () => {
+    setMenuOpen(false); // Close the sidebar when the close button is clicked
+  };
+
   return (
-    <nav className="navbar">
-      <div className="navbar-content">
-        {/* Use div or span for the clickable hamburger icon */}
-        <div className="hamburger-menu" onClick={() => setMenuOpen(!menuOpen)}>
-          <img src={hamburgerMenuIcon} alt="Menu" className="hamburger-icon" />
-        </div>
+    <div>
+      <nav className="navbar">
+        <div className="navbar-content">
+          {/* Include the Hamburger component */}
+          <Hamburger onClick={handleMenuToggle} />
 
-        {/* Slide-Out Menu */}
-        <div className={`menu ${menuOpen ? 'open' : ''}`}>
-          <button onClick={() => alert('Home Clicked')}>Home</button>
-          <button onClick={() => alert('Upload Clicked')}>Upload</button>
-          <button onClick={() => alert('Settings Clicked')}>Settings</button>
+          {/* App Name */}
+          <div className="app-name">DataFusion.AI</div>
         </div>
+      </nav>
 
-        {/* App Name */}
-        <div className="app-name">DataFusion.AI</div>
-      </div>
-    </nav>
+      {/* Sidebar */}
+      <Sidebar isOpen={menuOpen} onClose={handleCloseSidebar} />
+    </div>
   );
 };
 
