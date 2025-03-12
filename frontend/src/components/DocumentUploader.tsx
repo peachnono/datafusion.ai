@@ -11,7 +11,7 @@ const DocumentUploader: React.FC<DocumentUploaderProps> = ({ onFilesUpdate }) =>
 
   return (
     <FilePond
-      files={files}
+      files={files} 
       onupdatefiles={(fileItems) => {
         const newFiles = fileItems.map((fileItem) => fileItem.file as File);
         setFiles(newFiles);
