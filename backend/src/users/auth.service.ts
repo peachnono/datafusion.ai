@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from './user.repository';
@@ -10,6 +5,8 @@ import { User } from './user.entity';
 
 @Injectable()
 export class AuthService {
+  private disabledToken: Set<string> = new Set();
+
   constructor(
     private userRepository: UserRepository,
     private jwtService: JwtService,
@@ -29,14 +26,21 @@ export class AuthService {
       throw new Error('Invalid credentials');
     }
     const payload = { email: user.email, sub: user.id };
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
     return this.jwtService.sign(payload);
   }
 
+  logout(token: string): void {
+    this.disabledToken.add(token);
+  }
+
   verifyToken(token: string): User {
+    if (this.disabledToken.has(token)) {
+      throw new Error('Token has been blacklisted');
+    }
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      const decoded = this.jwtService.verify(token);
+      const decoded = this.jwtService.verify<{ email: string; sub: number }>(
+        token,
+      );
       const user = this.userRepository.findUserByEmail(decoded.email);
       if (!user) {
         throw new Error('User not found');

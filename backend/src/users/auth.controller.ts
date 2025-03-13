@@ -1,8 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-// auth.controller.ts
-import { Controller, Post, Get, Body } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  HttpCode,
+  Req,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
 
@@ -23,6 +27,18 @@ export class AuthController {
       credentials.password,
     );
     return { access_token: token };
+  }
+
+  @Post('logout')
+  @HttpCode(204) // HTTP 204 No Content
+  logout(@Req() req: { headers: { authorization?: string } }) {
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.split(' ')[1];
+    if (!token) {
+      throw new UnauthorizedException('No token provided');
+    }
+    this.authService.logout(token);
+    return; // Return nothing, status code 204
   }
 
   @Get('me')

@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import HomePage from './pages/HomePage';  // You can swap out with other pages
-import Footer from './components/Footer'; // Import Footer component
-import Navbar from './components/Navbar'; // Import Navbar component
+import HomePage from './pages/HomePage';  
+import Footer from './components/Footer'; 
+import Navbar from './components/Navbar'; 
 import DocumentUploadPage from './pages/DocumentUploadPage';
+import Login from './components/Login';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Simulate checking local storage or token validation
+    const token = localStorage.getItem('userToken');
+    setIsAuthenticated(!!token);
+  }, []);
+
   return (
     <div className="app-container">
       <header className="header">
-        <Navbar />  {/* Navbar at the top */}
-        
+        <Navbar /> 
       </header>
       <main className="content">
-        <DocumentUploadPage /> {/* Dynamically change this based on page */}
+        { isAuthenticated ? <DocumentUploadPage /> : <Login setIsAuthenticated={setIsAuthenticated} /> }
       </main>
       <footer className="footer">
-        <Footer />  {/* Footer stays at the bottom */}
+        <Footer /> 
       </footer>
     </div>
   );

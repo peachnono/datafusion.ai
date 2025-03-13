@@ -1,6 +1,4 @@
-// services/authService.ts
 import axios from 'axios';
-
 
 interface RegisterData {
   username: string;
@@ -13,13 +11,22 @@ interface LoginData {
   password: string;
 }
 
+interface LogoutData {
+  token: string;
+}
+
+const API_URL = 'http://localhost:5000/';
+
 const register = async (data: RegisterData) => {
-  return axios.post(`http://localhost:5000/register`, data);
+  return axios.post(`${API_URL}/auth/register`, data);
 };
 
 const login = async (data: LoginData) => {
-  return axios.post(`http://localhost:5000/auth/login`, data);
+  return axios.post(`${API_URL}/auth/login`, data);
 };
- console.log(login)
 
-export { register, login };
+const logout = async (token: string) => (data: LogoutData) => {
+  return axios.post(`${API_URL}/auth/logout`, data);
+};
+
+export { register, login, logout };
