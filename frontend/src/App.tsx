@@ -10,6 +10,7 @@ function App() {
     <div className="app-container">
       <header className="header">
         <Navbar />  {/* Navbar at the top */}
+        
       </header>
       <main className="content">
         <DocumentUploadPage /> {/* Dynamically change this based on page */}
