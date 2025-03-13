@@ -11,7 +11,7 @@ const DocumentUploader: React.FC<DocumentUploaderProps> = ({ onFilesUpdate }) =>
 
   return (
     <FilePond
-      files={files} 
+      files={files}
       onupdatefiles={(fileItems) => {
         const newFiles = fileItems.map((fileItem) => fileItem.file as File);
         setFiles(newFiles);
@@ -19,9 +19,20 @@ const DocumentUploader: React.FC<DocumentUploaderProps> = ({ onFilesUpdate }) =>
           onFilesUpdate(newFiles); // Pass updated files to parent if needed
         }
       }}
+      name="filepond" // FilePond requires the field name to match
       allowMultiple={true}
       maxFiles={3}
-      server="/your-server-endpoint" // Adjust this to your actual backend API
+      server={{
+        url: "http://localhost:3000", // Base API URL
+        process: {
+          url: "/uploads", // Correct API endpoint
+          method: "POST",
+          withCredentials: false,
+          headers: {
+            "Authorization": "Bearer YOUR_ACCESS_TOKEN", // If authentication is required
+          },
+        },
+      }}
     />
   );
 };
