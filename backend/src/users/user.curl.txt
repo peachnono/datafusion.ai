@@ -7,5 +7,5 @@ curl -X POST http://localhost:5000/auth/login \
 -H "Content-Type: application/json" \
 -d '{"email": "test@example.com", "password": "securePassword123"}'
 
-curl -X GET http://localhost:3000/auth/me \
+curl -X GET http://localhost:5000/auth/me \
 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDE3MDAzMTIsImV4cCI6MTc0MTcwMzkxMn0.c7iX5EmGa1HNrr5snmSuODpkYZvW1rxWQnty^C9cIlE"
