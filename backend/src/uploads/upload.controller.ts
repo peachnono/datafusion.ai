@@ -10,28 +10,30 @@ export class UploadController {
         private readonly uploadService: UploadService
       ) {}
     
-  // Create: 上傳新文件
+  // Create: Upload new file and create upload record to save into DB.
   @Post()
-  @UseInterceptors(FileInterceptor('file')) // 使用 Multer 接收文件
+  @UseInterceptors(FileInterceptor('file')) // Use Multer to recive upload data.
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    const userId = 'someUserId'; // 模擬的用戶ID，可以從身份驗證中獲取
+    // TODO: wait unitil conbine with the user schema.
+    // get the user id from login to fill userId field. 
+    const userId = 'someUserId'; 
     const upload = await this.uploadService.createUpload(file, userId);
     return { message: 'File uploaded successfully', upload };
   }
 
-  // Read: 獲取所有上傳記錄
+  // Read: Get all upload records
   @Get()
   async getAllUploads() {
     return this.uploadService.getAllUploads();
   }
 
-  // Read: 根據ID獲取上傳記錄
+  // Read: get record by uploadId
   @Get(':id')
   async getUploadById(@Param('id') id: string) {
     return this.uploadService.getUploadById(id);
   }
 
-  // Update: 更新 processedData
+  // Update processedData after AI process.
   @Put(':id')
   async updateProcessedData(
     @Param('id') id: string,
@@ -41,7 +43,7 @@ export class UploadController {
     return { message: 'Processed data updated successfully', updatedUpload };
   }
 
-  // Delete: 刪除上傳記錄
+  // Delete record
   @Delete(':id')
   async deleteUpload(@Param('id') id: string) {
     await this.uploadService.deleteUpload(id);
