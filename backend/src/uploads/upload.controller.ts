@@ -12,7 +12,7 @@ export class UploadController {
     
   // Create: 上傳新文件
   @Post()
-  @UseInterceptors(FileInterceptor('file')) // 使用 Multer 接收文件
+  @UseInterceptors(FileInterceptor('filepond')) // 使用 Multer 接收文件
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     const userId = 'someUserId'; // 模擬的用戶ID，可以從身份驗證中獲取
     const upload = await this.uploadService.createUpload(file, userId);
