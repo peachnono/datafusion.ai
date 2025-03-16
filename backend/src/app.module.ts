@@ -1,7 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './users/user.module';
 
+// import the used module
+// import { UserModule } from './user/user.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UploadModule } from './uploads/upload.module'
 @Module({
-  imports: [AuthModule],
+  imports: [MongooseModule.forRoot('mongodb://localhost/datafusion'),
+    UploadModule
+  ],
 })
+
 export class AppModule {}
