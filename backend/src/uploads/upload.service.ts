@@ -73,7 +73,7 @@ export class UploadService {
     console.log("Extracted File Content:", fileContent);
 
     // Create a new upload record
-    const newUpload = new this.uploadModel({
+    const newUpload = await this.uploadModel.create({
       id: this.generateUniqueId(file.originalname),
       title: file.originalname,
       type: file.mimetype,
