@@ -32,6 +32,37 @@
 $ npm install
 ```
 
+## Database setup
+# installation
+npm i @nestjs/mongoose mongoose  <!-- most popular MongoDB object modeling tool. -->
+npm install --save-dev @types/express @types/multer <!-- upload files -->
+npm i --save @nestjs/azure-database <!-- Azure cosmos DB  -->
+npm install @nestjs/config <!-- make sure the .env file can get access -->
+
+* MongoDB Setup
+This guide explains how to set up MongoDB for your application, both locally and on Azure Cosmos DB using the MongoDB API. Follow the steps based on your environment.
+1. Local MongoDB Setup
+* Prerequisites
+Install MongoDB Community Edition:
+Download and install MongoDB from the official MongoDB website.
+Ensure MongoDB is added to your system's PATH for command-line access (mongo and mongod commands).
+Start the MongoDB service (mongod) and verify the installation using mongo --version.
+* Install MongoDB Compass (Optional):
+For a graphical user interface, download and install MongoDB Compass.
+
+2. Azure Cosmos DB (MongoDB API) Setup
+* Update your .env file:
+DB_USERNAME=datafusion-ai-server
+DB_PASSWORD=PRIMARY PASSWORD from Azure portal
+DB_URI=PRIMARY CONNECTION STRING from Azure portal
+
+* Make sure add the .env file name in .gitignore file for security.
+
+* Ensure your client IP is whitelisted in the Azure Cosmos DB Networking settings.
+
+3. Switching Between Local and Azure
+Uncomment the block of code to use either the local or Azure MongoDB instance in app.module.ts file.
+
 ## Compile and run the project
 
 ```bash
