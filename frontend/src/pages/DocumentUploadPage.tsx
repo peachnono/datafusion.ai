@@ -1,5 +1,5 @@
 import React from 'react';
-import './DocumentUploadPage.css';
+import './css/DocumentUploadPage.css';
 import DocumentUploader from '../components/DocumentUploader';
 
 const DocumentUploadPage: React.FC = () => {
