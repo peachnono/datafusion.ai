@@ -3,9 +3,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UploadModule } from './uploads/upload.module';
 import { ConfigModule } from '@nestjs/config';
 
+
 // Log the DB_URI environment variable for debugging purposes before initializing Mongoose.
+// TODO: delete after testing!
 console.log('DB_URI:', process.env.DB_URI);
 
+// Uncomment the following block to use the Azure MongoDB instance.
 // @Module({
 //   imports: [
 //     // Load configuration from the .env file to access environment variables.
@@ -21,7 +24,6 @@ console.log('DB_URI:', process.env.DB_URI);
 // })
 
 // Uncomment the following block to use the local MongoDB instance for development or testing purposes.
-// This provides an easy way to switch to local testing without modifying the primary configuration.
 @Module({
   imports: [MongooseModule.forRoot('mongodb://localhost/datafusion'),
     UploadModule
