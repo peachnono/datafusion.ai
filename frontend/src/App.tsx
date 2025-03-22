@@ -1,23 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
-import HomePage from './pages/HomePage';  // You can swap out with other pages
-import Footer from './components/Footer'; // Import Footer component
-import Navbar from './components/Navbar'; // Import Navbar component
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Footer from './components/Footer';
+import Navbar from './components/Navbar';
 import DocumentUploadPage from './pages/DocumentUploadPage';
+import Login from './pages/LoginPage';
+import { useAuth } from './utils/AuthContext';
 
 function App() {
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, [setIsAuthenticated]);
+
   return (
-    <div className="app-container">
-      <header className="header">
-        <Navbar />  {/* Navbar at the top */}
-      </header>
-      <main className="content">
-        <DocumentUploadPage /> {/* Dynamically change this based on page */}
-      </main>
-      <footer className="footer">
-        <Footer />  {/* Footer stays at the bottom */}
-      </footer>
-    </div>
+    <Router>
+      <div className="app-container">
+        <header className="header">
+          <Navbar />
+        </header>
+        <main className="content">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/documents" element={isAuthenticated ? <DocumentUploadPage /> : <Navigate replace to="/login" />} />
+            <Route path="/" element={<Navigate replace to={isAuthenticated ? "/documents" : "/login"} />} />
+          </Routes>
+        </main>
+        <footer className="footer">
+          <Footer />
+        </footer>
+      </div>
+    </Router>
   );
 }
 
